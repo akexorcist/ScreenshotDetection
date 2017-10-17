@@ -21,9 +21,14 @@ compile 'com.akexorcist:screenshotdetection:1.0.0'
 ```
 
 
+Permission in this library
+===========================
+This library has declared the permission for read the external storage. So you need to handle the runtime permission. If not, app will not crash but detect the screenshot will not work.
+
+
 Usage
 ===========================
-Implement the library to activity that you need to detect the screenshot. Use base activity class for clean code
+Implement the library to activity that you need to detect the screenshot. Use base activity class for clean code.
 
 ```java
 import android.os.Bundle;
@@ -58,7 +63,74 @@ public abstract class ScreenshotDetectionActivity extends AppCompatActivity impl
 }
 ```
 
-Then extends your target activity with that base activity class
+
+But above example will not work because read the external storage permission has denied. To fix this, you need to add the code for runtime permission request.
+
+```java
+public abstract class ScreenshotDetectionActivity extends AppCompatActivity implements ScreenshotDetectionDelegate.ScreenshotDetectionListener {
+    private static final int REQUEST_CODE_READ_EXTERNAL_STORAGE_PERMISSION = 3009;
+
+    private ScreenshotDetectionDelegate screenshotDetectionDelegate = new ScreenshotDetectionDelegate(this, this);
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        checkReadExternalStoragePermission();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        screenshotDetectionDelegate.startScreenshotDetection();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        screenshotDetectionDelegate.stopScreenshotDetection();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_READ_EXTERNAL_STORAGE_PERMISSION:
+                if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                    showReadExternalStoragePermissionDeniedMessage();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
+    public void onScreenCaptured(String path) {
+        // Do something when screen was captured
+    }
+
+    @Override
+    public void onScreenCapturedWithDeniedPermission() {
+        // Do something when screen was captured but read external storage permission has denied
+    }
+
+    private void checkReadExternalStoragePermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            requestReadExternalStoragePermission();
+        }
+    }
+
+    private void requestReadExternalStoragePermission() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_READ_EXTERNAL_STORAGE_PERMISSION);
+    }
+
+    private void showReadExternalStoragePermissionDeniedMessage() {
+        Toast.makeText(this, "Read external storage permission has denied", Toast.LENGTH_SHORT).show();
+    }
+}
+```
+
+
+Then extends your target activity with that base activity class and declare onScreenCaptured(String path) and onScreenCapturedWithDeniedPermission() when you want to detect the screenshot.
 
 ```java
 import android.os.Bundle;
