@@ -67,6 +67,18 @@ public abstract class ScreenshotDetectionActivity extends AppCompatActivity impl
 But above example will not work because read the external storage permission has denied. To fix this, you need to add the code for runtime permission request.
 
 ```java
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
+
+import com.akexorcist.screenshotdetection.ScreenshotDetectionDelegate;
+
 public abstract class ScreenshotDetectionActivity extends AppCompatActivity implements ScreenshotDetectionDelegate.ScreenshotDetectionListener {
     private static final int REQUEST_CODE_READ_EXTERNAL_STORAGE_PERMISSION = 3009;
 
