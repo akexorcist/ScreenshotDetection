@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Screenshot Detection</string>
+    <string name="do_the_screen_capture">Do the screen capture</string>
+</resources>
