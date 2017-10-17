@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Screenshot Detection</string>
     <string name="do_the_screen_capture">Do the screen capture</string>
+    <string name="please_grant_read_external_storage_permission_for_screenshot_detection">Please grant read external storage permission for screenshot detection</string>
+    <string name="read_external_storage_permission_denied_dialog_title">Permission Denied</string>
+    <string name="read_external_storage_permission_denied_dialog_message">You need to allow access to external storage for screenshot detection</string>
+    <string name="read_external_storage_permission_dialog_positive">OK</string>
+    <string name="read_external_storage_permission_dialog_negative">Cancel</string>
+    <string name="read_external_storage_permission_denied_message">Read external storage permission has denied</string>
 </resources>
