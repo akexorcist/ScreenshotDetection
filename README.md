@@ -89,7 +89,7 @@ public class MainActivity extends ScreenshotDetectionActivity {
 
 Demo 
 ===========================
-![Demo](https://raw.githubusercontent.com/akexorcist/Android-ScreenshotDetection/master/Image/screenshot_001.gif)
+![Demo](https://raw.githubusercontent.com/akexorcist/Android-ScreenshotDetection/master/Images/screenshot_001.gif)
 
 
 Licence
