@@ -25,3 +25,19 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+def isReleaseBuild() {
+    return version.contains("SNAPSHOT") == false
+}
+
+allprojects {
+    version = VERSION_NAME
+    group = GROUP
+    repositories {
+        jcenter()
+        mavenCentral()
+        google()
+    }
+}
+
+apply plugin: 'android-reporting'
