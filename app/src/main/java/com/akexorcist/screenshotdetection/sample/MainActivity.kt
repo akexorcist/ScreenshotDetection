@@ -1,7 +1,6 @@
 package com.akexorcist.screenshotdetection.sample
 
 import android.os.Bundle
-import android.util.Log
 import com.akexorcist.screenshotdetection.sample.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 
