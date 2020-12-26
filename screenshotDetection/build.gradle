@@ -1,15 +1,16 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'org.jetbrains.dokka-android'
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion Integer.parseInt(project.ANDROID_COMPILE_SDK_VERSION)
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion Integer.parseInt(project.ANDROID_MIN_SDK)
+        targetSdkVersion Integer.parseInt(project.ANDROID_TARGET_SDK_VERSION)
+        versionCode Integer.parseInt(VERSION_CODE)
+        versionName VERSION_NAME
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -27,6 +28,12 @@ android {
     }
 }
 
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/javadoc"
+    noStdlibLink = false
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -37,4 +44,29 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
 
-apply from: '../maven_push.gradle'
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'screenshot-detection'
+
+    publishedGroupId = 'com.akexorcist'
+    libraryName = 'Screenshot Detection'
+    artifact = 'screenshot-detection'
+
+    libraryDescription = 'Screenshot Detection Library'
+
+    siteUrl = 'https://github.com/akexorcist/ScreenshotDetection'
+    gitUrl = 'https://github.com/akexorcist/ScreenshotDetection.git'
+
+    libraryVersion = VERSION_NAME
+
+    developerId = 'akexorcist'
+    developerName = 'Somkiat Khitwongwattana'
+    developerEmail = 'akexorcist@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+apply from: '../publish/installv1.gradle'
+apply from: '../publish/bintrayv1.gradle'
