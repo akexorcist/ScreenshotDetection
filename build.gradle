@@ -1,14 +1,36 @@
 buildscript {
-    ext.kotlin_version = "1.4.32"
+    project.ext {
+        kotlin_version = '1.4.32'
+        compileSdkVersion = 30
+        targetSdkVersion = 30
+        minSdkVersion = 16
+
+        versionName = '1.0.1'
+        versionCode = 10001
+
+        libraryName = 'Screenshot Detection'
+        libraryDescription = 'Screenshot Detection Library for Android'
+
+        groupId = 'com.akexorcist'
+        artifactId = 'screenshot-detection'
+
+        siteUrl = 'https://github.com/akexorcist/ScreenshotDetection'
+        gitUrl = 'https://github.com/akexorcist/ScreenshotDetection.git'
+
+        developerId = 'akexorcist'
+        developName = 'Somkiat Khitwongwattana'
+        developerEmail = 'akexorcist@gmail.com'
+
+        licenseName = 'The Apache License, Version 2.0'
+        licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    }
     repositories {
         google()
         jcenter()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.1.3"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$project.kotlin_version"
         classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.17"
     }
 }
