@@ -9,8 +9,17 @@ Screenshot Detection Library
 # Download
 
 Since version 1.0.1 will [move from JCenter to MavenCentral](https://developer.android.com/studio/build/jcenter-migration)
-Gradle
+```groovy
+// build.gradle (project)
+allprojects {
+    repositories {
+        mavenCentral()
+        /* ... */
+    }
+}
+```
 
+Gradle
 ```
 implementation 'com.akexorcist:screenshotdetection:1.0.1'
 ```
