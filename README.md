@@ -19,7 +19,7 @@ Maven
 Gradle
 
 ```
-implementation 'com.akexorcist:screenshotdetection:1.0.0'
+implementation 'com.akexorcist:screenshotdetection:1.0.1'
 ```
 
 # Permission in this library
