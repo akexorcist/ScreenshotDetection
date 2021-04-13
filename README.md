@@ -1,4 +1,4 @@
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.akexorcist/screenshotdetection/badge.svg)](https://search.maven.org/artifact/com.akexorcist/screenshotdetection) 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.akexorcist/screenshot-detection/badge.svg)](https://search.maven.org/artifact/com.akexorcist/screenshot-detection) 
 ![Minimum SDK Version](https://img.shields.io/badge/minSdkVersion-16-brightgreen) 
 [![Workflow Status](https://github.com/akexorcist/ScreenshotDetection/actions/workflows/android.yml/badge.svg)](https://github.com/akexorcist/ScreenshotDetection/actions)
 
@@ -21,7 +21,7 @@ allprojects {
 
 **Gradle**
 ```
-implementation 'com.akexorcist:screenshotdetection:1.0.1'
+implementation 'com.akexorcist:screenshot-detection:1.0.1'
 ```
 
 # Permission in this library
