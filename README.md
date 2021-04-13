@@ -19,7 +19,7 @@ allprojects {
 }
 ```
 
-Gradle
+**Gradle**
 ```
 implementation 'com.akexorcist:screenshotdetection:1.0.1'
 ```
