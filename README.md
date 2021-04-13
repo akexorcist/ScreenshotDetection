@@ -1,4 +1,6 @@
-[![Build Status](https://travis-ci.org/akexorcist/Android-ScreenshotDetection.svg?branch=master)](https://travis-ci.org/akexorcist/Android-ScreenshotDetection) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.akexorcist/screenshotdetection/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.akexorcist/screenshotdetection)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.akexorcist/screenshotdetection/badge.svg)](https://search.maven.org/artifact/com.akexorcist/screenshotdetection) 
+![Minimum SDK Version](https://img.shields.io/badge/minSdkVersion-16-brightgreen) 
+[![Build Status](https://travis-ci.org/akexorcist/ScreenshotDetection.svg?branch=master)](https://travis-ci.org/akexorcist/ScreenshotDetection)
 
 # Android-ScreenshotDetection
 
@@ -6,16 +8,7 @@ Screenshot Detection Library
 
 # Download
 
-Maven
-
-```
-<dependency>
-  <groupId>com.akexorcist</groupId>
-  <artifactId>screenshotdetection</artifactId>
-  <version>1.0.1</version>
-</dependency>
-```
-
+Since version 1.0.1 will [move from JCenter to MavenCentral](https://developer.android.com/studio/build/jcenter-migration)
 Gradle
 
 ```
@@ -136,7 +129,7 @@ class MainActivity : ScreenshotDetectionActivity() {
 
 # Licence
 
-Copyright 2020 Akexorcist
+Copyright 2021 Akexorcist
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this work except in compliance with the License. You may obtain a copy of the License in the LICENSE file, or at:
 
