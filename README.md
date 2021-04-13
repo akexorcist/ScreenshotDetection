@@ -1,6 +1,6 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.akexorcist/screenshotdetection/badge.svg)](https://search.maven.org/artifact/com.akexorcist/screenshotdetection) 
 ![Minimum SDK Version](https://img.shields.io/badge/minSdkVersion-16-brightgreen) 
-[![Build Status](https://travis-ci.org/akexorcist/ScreenshotDetection.svg?branch=master)](https://travis-ci.org/akexorcist/ScreenshotDetection)
+[![Workflow Status](https://github.com/akexorcist/ScreenshotDetection/actions/workflows/android.yml/badge.svg)](https://github.com/akexorcist/ScreenshotDetection/actions)
 
 # Android-ScreenshotDetection
 
