@@ -1,3 +1,4 @@
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Screenshot%20Detection-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/8241)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.akexorcist/screenshot-detection/badge.svg)](https://search.maven.org/artifact/com.akexorcist/screenshot-detection) 
 ![Minimum SDK Version](https://img.shields.io/badge/minSdkVersion-16-brightgreen) 
 [![Workflow Status](https://github.com/akexorcist/ScreenshotDetection/actions/workflows/android.yml/badge.svg)](https://github.com/akexorcist/ScreenshotDetection/actions)
