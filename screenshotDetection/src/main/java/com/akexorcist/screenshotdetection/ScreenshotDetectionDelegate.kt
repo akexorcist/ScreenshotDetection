@@ -104,9 +104,11 @@ class ScreenshotDetectionDelegate(
 
     private fun onContentChanged(context: Context, uri: Uri) {
         if (isReadExternalStoragePermissionGranted()) {
-            getFilePathFromContentResolver(context, uri)?.let { path ->
-                if (isScreenshotPath(path)) {
-                    onScreenCaptured(path)
+            val path = getFilePathFromContentResolver(context, uri)
+
+            path?.let { p ->
+                if (isScreenshotPath(p)) {
+                    onScreenCaptured(p)
                 }
             }
         } else {
@@ -128,22 +130,20 @@ class ScreenshotDetectionDelegate(
 
     private fun getFilePathFromContentResolver(context: Context, uri: Uri): String? {
         try {
+            val dataColumn = "_data"
             context.contentResolver.query(
                 uri,
-                arrayOf(
-                    MediaStore.Images.Media.DISPLAY_NAME,
-                    MediaStore.Images.Media.DATA
-                ),
+                arrayOf(MediaStore.Images.Media.DISPLAY_NAME, dataColumn),
                 null,
                 null,
                 null
             )?.let { cursor ->
                 cursor.moveToFirst()
-                val path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA))
+                val path = cursor.getString(cursor.getColumnIndex(dataColumn))
                 cursor.close()
                 return path
             }
-        } catch (e: IllegalStateException) {
+        } catch (e: Exception) {
             Log.w(TAG, e.message ?: "")
         }
         return null
