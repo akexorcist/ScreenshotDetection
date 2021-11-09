@@ -44,17 +44,12 @@ class ScreenshotDetectionDelegate(
 
     constructor(
         activity: Activity,
-        onScreenCaptured: (path: String) -> Unit,
-        onScreenCapturedWithDeniedPermission: () -> Unit
+        onScreenCaptured: (path: String) -> Unit
     ) : this(
         WeakReference(activity),
         object : ScreenshotDetectionListener {
             override fun onScreenCaptured(path: String) {
                 onScreenCaptured(path)
-            }
-
-            override fun onScreenCapturedWithDeniedPermission() {
-                onScreenCapturedWithDeniedPermission()
             }
         }
     )
@@ -109,17 +104,11 @@ class ScreenshotDetectionDelegate(
                     onScreenCaptured(path)
                 }
             }
-        } else {
-            onScreenCapturedWithDeniedPermission()
         }
     }
 
     private fun onScreenCaptured(path: String) {
         listener.onScreenCaptured(path)
-    }
-
-    private fun onScreenCapturedWithDeniedPermission() {
-        listener.onScreenCapturedWithDeniedPermission()
     }
 
     private fun isScreenshotPath(path: String?): Boolean {
@@ -162,7 +151,5 @@ class ScreenshotDetectionDelegate(
 
     interface ScreenshotDetectionListener {
         fun onScreenCaptured(path: String)
-
-        fun onScreenCapturedWithDeniedPermission()
     }
 }

@@ -46,10 +46,6 @@ open class ScreenshotDetectionActivity : AppCompatActivity(), ScreenshotDetectio
         // Do something when screen was captured
     }
 
-    override fun onScreenCapturedWithDeniedPermission() {
-        // Do something when screen was captured but read external storage permission has denied
-    }
-
     private fun checkReadExternalStoragePermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             requestReadExternalStoragePermission()
