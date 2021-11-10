@@ -22,7 +22,7 @@ allprojects {
 
 **Gradle**
 ```
-implementation 'com.akexorcist:screenshot-detection:1.0.1'
+implementation 'com.akexorcist:screenshot-detection:1.0.2'
 ```
 
 # Permission in this library

@@ -5,8 +5,8 @@ buildscript {
         targetSdkVersion = 30
         minSdkVersion = 16
 
-        versionName = '1.0.1'
-        versionCode = 10001
+        versionName = '1.0.2'
+        versionCode = 10002
 
         libraryName = 'Screenshot Detection'
         libraryDescription = 'Screenshot Detection Library for Android'
