@@ -15,8 +15,4 @@ class MainActivity : ScreenshotDetectionActivity() {
     override fun onScreenCaptured(path: String) {
         Snackbar.make(binding.root, path, Snackbar.LENGTH_SHORT).show()
     }
-
-    override fun onScreenCapturedWithDeniedPermission() {
-        Snackbar.make(binding.root, R.string.please_grant_read_external_storage_permission_for_screenshot_detection, Snackbar.LENGTH_SHORT).show()
-    }
 }

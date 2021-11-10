@@ -13,11 +13,7 @@ import android.provider.MediaStore
 import android.util.Log
 import androidx.core.content.ContentResolverCompat
 import androidx.core.content.ContextCompat
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.channelFlow
@@ -25,7 +21,6 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.launch
 import java.lang.ref.WeakReference
 import java.util.*
 
@@ -37,11 +32,14 @@ class ScreenshotDetectionDelegate(
         private const val TAG = "ScreenshotDetection"
     }
 
+    private var job: Job? = null
+
     constructor(
         activity: Activity,
         listener: ScreenshotDetectionListener
     ) : this(WeakReference(activity), listener)
 
+    @Suppress("unused")
     constructor(
         activity: Activity,
         onScreenCaptured: (path: String) -> Unit
@@ -54,12 +52,10 @@ class ScreenshotDetectionDelegate(
         }
     )
 
-    var job: Job? = null
-
     @FlowPreview
     @ExperimentalCoroutinesApi
     fun startScreenshotDetection() {
-        job = GlobalScope.launch(Dispatchers.Main) {
+        job = CoroutineScope(Dispatchers.Main).launch {
             createContentObserverFlow()
                 .debounce(500)
                 .collect { uri ->
@@ -75,11 +71,11 @@ class ScreenshotDetectionDelegate(
     }
 
     @ExperimentalCoroutinesApi
-    fun createContentObserverFlow() = channelFlow<Uri> {
+    fun createContentObserverFlow() = channelFlow {
         val contentObserver = object : ContentObserver(Handler(Looper.getMainLooper())) {
             override fun onChange(selfChange: Boolean, uri: Uri?) {
                 uri?.let { _ ->
-                    offer(uri)
+                    trySend(uri)
                 }
             }
         }
@@ -114,21 +110,24 @@ class ScreenshotDetectionDelegate(
     }
 
     private fun isScreenshotPath(path: String?): Boolean {
-        return path != null && path.toLowerCase(Locale.getDefault()).contains("screenshot")
+        return path != null && path.lowercase().contains("screenshot")
     }
 
+    @Suppress("DEPRECATION")
     private fun getFilePathFromContentResolver(context: Context, uri: Uri): String? {
         try {
-            val dataColumn = "_data"
             context.contentResolver.query(
                 uri,
-                arrayOf(MediaStore.Images.Media.DISPLAY_NAME, dataColumn),
+                arrayOf(
+                    MediaStore.Images.Media.DISPLAY_NAME,
+                    MediaStore.Images.Media.DATA
+                ),
                 null,
                 null,
                 null
             )?.let { cursor ->
                 cursor.moveToFirst()
-                val path = cursor.getString(cursor.getColumnIndex(dataColumn))
+                val path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA))
                 cursor.close()
                 return path
             }
