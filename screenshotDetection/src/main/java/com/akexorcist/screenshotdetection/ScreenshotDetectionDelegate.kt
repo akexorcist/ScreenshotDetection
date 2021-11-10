@@ -2,27 +2,23 @@ package com.akexorcist.screenshotdetection
 
 import android.Manifest
 import android.app.Activity
-import android.content.ContentResolver
 import android.content.Context
 import android.content.pm.PackageManager
 import android.database.ContentObserver
 import android.net.Uri
+import android.os.Build
+import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
-import androidx.core.content.ContentResolverCompat
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
 import java.lang.ref.WeakReference
-import java.util.*
 
 class ScreenshotDetectionDelegate(
     private val activityReference: WeakReference<Activity>,
@@ -110,8 +106,17 @@ class ScreenshotDetectionDelegate(
     }
 
     private fun isScreenshotPath(path: String?): Boolean {
-        return path != null && path.lowercase().contains("screenshot")
+        val lowercasePath = path?.lowercase()
+        val screenshotDirectory = getPublicScreenshotDirectoryName()?.lowercase()
+        return (screenshotDirectory != null &&
+                lowercasePath?.contains(screenshotDirectory) == true) ||
+                lowercasePath?.contains("screenshot") == true
     }
+
+    @Suppress("DEPRECATION")
+    private fun getPublicScreenshotDirectoryName() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_SCREENSHOTS).name
+    } else null
 
     @Suppress("DEPRECATION")
     private fun getFilePathFromContentResolver(context: Context, uri: Uri): String? {
