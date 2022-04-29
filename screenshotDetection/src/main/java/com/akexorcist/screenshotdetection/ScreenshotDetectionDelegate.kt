@@ -132,9 +132,18 @@ class ScreenshotDetectionDelegate(
                 null
             )?.let { cursor ->
                 cursor.moveToFirst()
-                val path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA))
+                if (cursor.count > 0) {
+                    val columnIndex = cursor.getColumnIndex(MediaStore.Images.Media.DATA)
+                    var path: String? = null
+                    if (columnIndex > 0) {
+                        path = cursor.getString(columnIndex)
+                    }
+                    cursor.close()
+                    return path
+                }
+
                 cursor.close()
-                return path
+                return null
             }
         } catch (e: Exception) {
             Log.w(TAG, e.message ?: "")
